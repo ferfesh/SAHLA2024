@@ -16,10 +16,10 @@ class ProfitRateViewSet(viewsets.ModelViewSet):
     serializer_class = ProfitRateSerializer
 
 def home(request):
-    return render(request, 'sahla_rewards/home.html')
+    return render(request, 'rewards/home.html')
 
 def register(request):
-    return render(request, 'sahla_rewards/register.html')
+    return render(request, 'rewards/register.html')
 
 def network(request):
-    return render(request, 'sahla_rewards/network.html')
+    return render(request, 'rewards/network.html')

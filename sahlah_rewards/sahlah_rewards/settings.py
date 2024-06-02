@@ -14,14 +14,16 @@ from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 import os
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
-]
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+LOCALE_PATHS = [
+    #os.path.join(BASE_DIR, 'locale'),
+    BASE_DIR / 'locale',
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -112,7 +114,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
-
+LANGUAGES = [
+    ('en', _('English')),
+    ('ar', _('Arabic')),
+]
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -132,7 +137,3 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LANGUAGES = [
-    ('en', _('English')),
-    ('ar', _('Arabic')),
-]

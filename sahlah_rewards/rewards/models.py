@@ -40,7 +40,6 @@ class Member(models.Model):
             self.membership_number = generate_membership_number()
         super().save(*args, **kwargs)
 
-
     def generate_membership_number(self):
         return generate_membership_number()
 

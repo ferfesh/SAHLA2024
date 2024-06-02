@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="{% get_current_language %}">
 <head>
-    <title>Register - Sahla Rewards</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Register - Sahla Rewards" %}</title>
+    <style>
+        body {
+            direction: {% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %};
+        }
+    </style>    
 </head>
 <body>
-    <h1>Register</h1>
+    <h1>{% trans "Register" %}</h1>
     <form method="post">
         {% csrf_token %}
-        <!-- Add form fields here -->
-        <input type="submit" value="Register">
+        {{ form.as_p }}
+        <button type="submit">{% trans "Register" %}</button>
     </form>
-    <a href="{% url 'home' %}">Back to Home</a>
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'network' %}">View Network</a>
 </body>
 </html>

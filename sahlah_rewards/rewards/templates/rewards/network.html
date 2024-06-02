@@ -1,11 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Network - Sahla Rewards</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Tree</title>
+    <style>
+        /* إضافة بعض الأنماط الأساسية لشجرة الأعضاء */
+        .node circle {
+            fill: #999;
+        }
+        .node text {
+            font: 12px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #555;
+            stroke-width: 1.5px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Your Network</h1>
-    <!-- Add network tree visualization here -->
+    <div id="tree-container"></div>
     <a href="{% url 'home' %}">Back to Home</a>
+    <a href="{% url 'register' %}">Register</a>
+    <!-- إضافة D3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        // تحويل البيانات من Django إلى JavaScript
+        const data = {{ data|safe }};
+
+        // إعداد الأبعاد الأساسية للشجرة
+        const width = 960;
+        const height = 500;
+
+        const treeLayout = d3.tree().size([width, height]);
+
+        const root = d3.stratify()
+            .id(d => d.id)
+            .parentId(d => d.parent_id)
+            (data);
+
+        treeLayout(root);
+
+        const svg = d3.select("#tree-container")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const link = svg.selectAll(".link")
+            .data(root.links())
+            .enter().append("path")
+            .attr("class", "link")
+            .attr("d", d3.linkHorizontal()
+                .x(d => d.y)
+                .y(d => d.x));
+
+        const node = svg.selectAll(".node")
+            .data(root.descendants())
+            .enter().append("g")
+            .attr("class", "node")
+            .attr("transform", d => `translate(${d.y},${d.x})`);
+
+        node.append("circle")
+            .attr("r", 4.5);
+
+        node.append("text")
+            .attr("dy", 3)
+            .attr("x", d => d.children ? -8 : 8)
+            .style("text-anchor", d => d.children ? "end" : "start")
+            .text(d => d.data.name);
+    </script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - Sahla Rewards</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        <!-- Add form fields here -->
+        <input type="submit" value="Register">
+    </form>
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>
